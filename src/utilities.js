@@ -1,4 +1,4 @@
-const {readFile} = require("fs");
+const {readFile, createReadStream} = require("fs");
 const { extname } = require("path");
 const { hrtime } = require("process");
 const mimetype = require("./mimetype");
@@ -27,6 +27,20 @@ exports.sendFile = function(req, res, filename) {
         res.setHeader("Content-type", type);
         res.end(filecontent);
     })
+}
+
+exports.streamfile = function(req, res, filename) {
+    const mime = extname(filename);
+    const type = mimetype[mime].type;
+    const stream = createReadStream(filename);
+    stream.on("error", function(err) {
+        console.log(err);
+        exports.sendJSON(req, res, {error: {msg: "Det lykkes ikke"}}, 404);
+        return;
+    });
+    res.statusCode = 200;
+    res.setHeader("Content-type", type);
+    stream.pipe(res);
 }
 
 exports.redirect = function(res, url) {
