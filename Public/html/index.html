@@ -10,6 +10,26 @@
 <body>
     <h1>Index</h1>
     <a href="about.html">About</a>
+
+    <br>
+    <button type="button"
+    onclick="document.getElementById('time').innerHTML = Date()">
+    Click me to display Date and Time.</button>
+    <br>
+    <p id="time"></p>
+
+    <form id="animalForm" action="/action_page.php">
+        <b> Vælg dit ønskede dyr </b>  
+        <select id = "animalList" onchange = "animalDropdown()" >  
+        <option> ---Vælg et dyr--- </option>  
+        <option> Cat </option>  
+        <option> Duck </option>  
+        </select><br>
+        Name: <input type="text" name="Aname"><br>
+        Sound: <input type="text" name="Asound"><br><br>
+        <input type="button" onclick="formSend()" value="Submit">
+    </form>
+
     <script src="../js/script.js"></script>
 </body>
 </html>

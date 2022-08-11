@@ -59,3 +59,17 @@ exports.logger = function(req, res) {
         console.log(logStr);
     });
 }
+
+exports.getData = function(req) {
+    return new Promise((resolve, reject) =>{
+
+        let dataStr = "";
+        req.on("data", function(chunk){
+            dataStr += chunk;
+        })
+        req.on("end", function() {
+            console.log(JSON.parse(dataStr));
+            resolve(JSON.parse(dataStr));
+        })
+    })
+}
