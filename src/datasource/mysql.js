@@ -36,9 +36,9 @@ exports.insertPerson = function(person, callback) {
     })
 }
 
-exports.updatePerson = function(pid, person, callback) {
+exports.updatePerson = function(persid, person, callback) {
     const sql = "update persons set fullname = ?, email = ?, note = ?, student = ? where persid = ?";
-    conn.query(sql, [person.fullname, person.email, person.note, person.student], (err, result) => {
+    conn.query(sql, [person.fullname, person.email, person.note, person.student, persid], (err, result) => {
         if(err) {
             console.log(err);
             return;
